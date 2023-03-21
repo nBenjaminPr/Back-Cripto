@@ -1,4 +1,4 @@
-const CustomError = require ("../utils/CustonError");
+const CustomError = require ("../utils/CustomError");
 
 
 const login = async (req, res) => {
