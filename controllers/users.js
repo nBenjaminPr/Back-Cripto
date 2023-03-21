@@ -1,0 +1,1 @@
+const getUsers = async (req, res) => true
