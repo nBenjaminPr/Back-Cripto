@@ -19,6 +19,24 @@ router.post (
 
 );
 
-router.post ("/register", register)
+router.post ("/register", [
+    check (
+        "name",
+        "El formato debe contener Minimo 8 caracteres Maximo 15, Al menos una letra mayúscula, Al menos una letra minucula, Al menos un dígito, No espacios en blanco Al menos 1 caracter especial"
+    )
+    .isString()
+    .isLength({min: 2, max: 30}),
+    check ("lastname").not().isEmpty.isString().isLength({min: 2, max: 30}),
+    check ("email").isEmail(),
+    check ("age").isFloat({min:0, max: 150}),
+    check ("password")
+    .not()
+    .isEmpty()
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,15}/),
+    validateFields,
+
+], 
+
+register),
 
 module.exports = router;
