@@ -1,5 +1,6 @@
 const {Router} = require ("express")
-const { check } = require ("express-validator")
+const { check } = require ("express-validator");
+const { register } = require("../controllers/users");
 const validateFields = require ("../middlewares/validateFields")
 
 const { login } = require 
@@ -15,4 +16,9 @@ router.post (
         validateFields,
     ],
     login
-)
+
+);
+
+router.post ("/register", register)
+
+module.exports = router;

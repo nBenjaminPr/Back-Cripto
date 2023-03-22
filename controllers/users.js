@@ -21,12 +21,44 @@ try {
 
 res
     .status (200)
-    .json ({message : "Ingreso correcto", ok: true, user, token});
+    .json ({message : "Ingreso correcto", user, token});
 
 } catch (error) {
     res
         .status (error.code || 500)
         .json ({message: error.message || "algo exploto : |" })
 }
+};
+
+const register = async(req, res) => {
+
+try {
+    const { name, lastname, age, email,password} = 
+
+    req.body;
+
+    const salt = await bcrypt.genSalt(10);
+    const passwordEncrypted = await bcrypt.hash(password, salt);
+    const newUser = new User({
+        name,
+        lastname,
+        email,
+        age,
+        admin: false,
+        password: passwordEncrypted
+    });
+
+    const userSaved = await newUser.save();
+    res
+        .status(200)
+        .json({message: "El Usuario se agrego con exito", user: userSaved})
+
+} catch (error) {
+    res.status(error.code || 500 )
+        .json({message: error.message || "algo exploto :(" 
+    })
+}
 
 }
+
+module.exports = {login, register}
