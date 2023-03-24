@@ -1,9 +1,7 @@
 const {Router} = require ("express")
 const { check } = require ("express-validator");
-const { register } = require("../controllers/users");
 const validateFields = require ("../middlewares/validateFields")
-
-const { login } = require 
+const {login, register} = require ("./../controllers/users")
 
 
 const router = Router ();
@@ -26,7 +24,7 @@ router.post ("/register", [
     )
     .isString()
     .isLength({min: 2, max: 30}),
-    check ("lastname").not().isEmpty.isString().isLength({min: 2, max: 30}),
+    check("lastname").not().isEmpty().isString().isLength({ min: 2, max: 30 }),
     check ("email").isEmail(),
     check ("age").isFloat({min:0, max: 150}),
     check ("password")

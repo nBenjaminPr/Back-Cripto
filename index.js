@@ -2,10 +2,9 @@ const express = require ("express");
 const dotenv = require ("dotenv");
 const cors = require ("cors")
 
-
-
 const connectDB = require ("./config/db")
 const users = require ("./routes/users")
+const usersRoutes = require("./routes/users");
 
 const app = express ();
 dotenv.config();
@@ -17,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use (cors());
 
+app.use("/users", users);
 app.use ("/users", usersRoutes);
 
 app.listen(PORT, () => {
