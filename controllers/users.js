@@ -13,7 +13,7 @@ try {
     throw new CustomError ("Usuario y contraseña son requeridas", 400);
     const user = await User.findOne ({email});
 
-    if (!user) throw new CustomError ("Usuario no encontrado", 400)
+    if (!user) throw new CustomError ("Usuario no encontrado", 404)
     const passOk = await bcrypt.compare(password, user.password);
     if (!passOk) throw new CustomError ("Contraseña incorrecta", 400)
     const token = jwt.sign ({id: user._id}, process.env.JWT_SECRET_KEY, {expiresIn: "1h" ,
