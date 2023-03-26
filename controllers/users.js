@@ -55,10 +55,19 @@ try {
 
 } catch (error) {
     res.status(error.code || 500 )
-        .json({message: error.message || "algo exploto :(" 
-    })
+        .json({message: error.message || "algo exploto :(" })
+}
 }
 
+const getAuthStatus = async (req, res) => {
+    try {
+        const id = req.id;
+        const user = await User.findById (id)
+        res.status(200).json({user})
+    } catch (error) {
+        res.status(error.code || 500 )
+        .json({message: error.message || "algo exploto :(" })
+    }
 }
 
-module.exports = {login, register}
+module.exports = {login, register, getAuthStatus}

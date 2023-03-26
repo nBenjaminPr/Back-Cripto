@@ -1,9 +1,10 @@
 const {Router} = require ("express")
 const { check } = require ("express-validator");
+const auth = require("../middlewares/auth");
 
 
 const validateFields = require ("../middlewares/validateFields")
-const {login, register} = require ("./../controllers/users")
+const {login, register, getAuthStatus} = require ("./../controllers/users")
 
 
 const router = Router ();
@@ -37,5 +38,8 @@ router.post ("/register", [
 ], 
 
 register),
+
+router.get ("/authStatus",auth,getAuthStatus)
+
 
 module.exports = router;
