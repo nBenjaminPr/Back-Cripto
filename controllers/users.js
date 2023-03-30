@@ -1,5 +1,5 @@
 const bcrypt = require ("bcryptjs")
-const jwt = require ("jsonwebtoken")
+const jwt = require ("jsonwebtoken") //token para ingresar
 
 
 const CustomError = require ("../utils/CustomError");
@@ -63,6 +63,7 @@ const getAuthStatus = async (req, res) => {
     try {
         const id = req.id;
         const user = await User.findById (id)
+        if (!user) throw new CustomError ( "Auntenticación Fallida", 401)
         res.status(200).json({user})
     } catch (error) {
         res.status(error.code || 500 )
